@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.fireantzhang.plugin.greeting'
+
+myAndroidInfo {
+
+    devName="fireantzhang"
+    devAge=18
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+}
+
+android {
+
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId = "com.fireantzhang.pluginsample"
+
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+myAndroidInfo {
+
+    devName="fireantzhang"
+    devAge=18
+}
+
+dependencies {
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    implementation 'com.android.tools.build:gradle:3.5.2'
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        println("output 实现类信息：${output.getClass()}")
+        output.processManifestProvider.get().doLast {
+
+            println("manifestOutputDirectory 实现类信息：${manifestOutputDirectory.getClass()}")
+
+
+            def manifestPath = "${manifestOutputDirectory.get()}/AndroidManifest.xml"
+        }
+    }
+}
